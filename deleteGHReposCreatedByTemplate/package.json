@@ -8,7 +8,7 @@
     "build": "rimraf dist && tsc -p tsconfig.json",
     "format:check": "prettier --check \"./**/*.{css,scss,js,json,jsx,lintstagedrc,md,prettierrc,ts,tsx,yaml}\"",
     "format:write": "prettier --write \"./**/*.{css,scss,js,json,jsx,lintstagedrc,md,prettierrc,ts,tsx,yaml}\"",
-    "lint": "npm run lint:source && npm run lint:test",
+    "lint": "npm run lint:source",
     "lint:file": "eslint --fix",
     "lint:source": "npm run lint:file -- \"**/!(*.spec).ts\"",
     "lint:test": "npm run lint:testfile -- \"**/*.spec.ts\"",

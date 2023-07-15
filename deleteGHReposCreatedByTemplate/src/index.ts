@@ -18,9 +18,13 @@ export const lambdaHandler: Handler = async (event: ScheduledEvent): Promise<voi
     // if you want to delete a repo, you can use the following code // const response = await octokit.request('DELETE /repos/{owner}
 
 try { // fetch is available with Node.js 18 console.log('EVENT: \n' + JSON.stringify(event, null, 2));
-        }
+  console.log(baseUrl)
+  console.log(ssmEncryptedParameter)
+  console.log(templatesToRemoveRepos) 
+  console.log('EVENT: \n' + JSON.stringify(event, null, 2));     
+}
         catch (err) {
           console.log(err);
           
-          };
+          }
 }

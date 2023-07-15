@@ -1,0 +1,36 @@
+service: deleteGHReposCreatedByTemplate
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: eu-west-1
+  tags:
+    env: dev
+    project: learning-serverless
+  timeout: 10
+  memorySize: 128
+  logRetentionInDays: 14
+  iam: 
+    role:
+      managedPolicies: 
+        - 'arn:aws:iam::aws:policy/AmazonSSMFullAccess'
+
+
+
+
+functions:
+  function1:
+    handler: ./dist/index.lambdaHandler
+    events:
+      - schedule: rate(5 minutes)
+      
+    environment:
+      baseUrl: 'https://github.com/manrodri-learning'
+      tokenSecretName: github-full-access
+      templatesToRemoveRepos: test1,test2
+      region: 'eu-west-1'
+      
+
+

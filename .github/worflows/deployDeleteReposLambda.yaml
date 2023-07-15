@@ -1,0 +1,37 @@
+name: CI serverless app
+on:
+  push:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ENVIRONMENT_STAGE: dev
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install serverless framework
+        run: |
+          echo installing serverless
+          npm i -g serverless
+
+      - uses: actions/checkout@v3
+      - name: npm install
+        working-directory: deleteGHReposCreatedByTemplate
+        run: |
+          echo installing dependencies
+          npm ci
+
+      - name: deploy to AWS
+        working-directory: deleteGHReposCreatedByTemplate
+        run: |
+          echo "Deployment started on $(date)"
+          echo Deploying with the serverless framework to stage $ENVIRONMENT_STAGE
+          sls deploy
+      - name: Post build step
+        run: echo "Deployment completed on $(date)"
